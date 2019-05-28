@@ -1,4 +1,4 @@
-Executar comandos em php com script após o update
+## Executar comandos em php com script após o update
 
 {
     "name": "ribafs/teste",
@@ -16,7 +16,7 @@ Executar comandos em php com script após o update
     }
 }
 
-Veja outras opções:
+## Veja outras opções:
 
 Composer fires the following named events during its execution process:
 Command Events#
@@ -33,7 +33,7 @@ Command Events#
     post-root-package-install: occurs after the root package has been installed, during the create-project command.
     post-create-project-cmd: occurs after the create-project command has been executed.
 
-No plugin ribafs/admin-br eu usei no post-upload-dump, que apenas executa o composer.json:
+### No plugin ribafs/admin-br eu usei no post-upload-dump, que apenas executa o composer.json:
 
     "scripts": {
       "post-autoload-dump": "php copiar.php"
@@ -46,7 +46,7 @@ Este é o arquivo copiar.php:
     copy ( 'copiar/bootstrap_cli.php' , '../../../config/bootstrap_cli.php');
 ?>
 
-Muito mais em:
+## Muito mais em:
 https://getcomposer.org/doc/articles/scripts.md
 
 
