@@ -1,0 +1,108 @@
+Lógica de Negócios do aplicativo Finanças Pessoais
+
+DespesasTable
+
+use Cake\ORM\TableRegistry;
+
+	public function despesasMes($mes){
+
+		$despesas = TableRegistry::get('Despesas')->find();
+		$res = $despesas->select(['total_sum' =>$despesas->func()->sum('Despesas.valor')])
+		->where(['Despesas.mes' => $mes])->first();
+		$total = $res->total_sum;
+
+		return $total;
+	}
+
+ReceitasTable
+
+use Cake\ORM\TableRegistry;
+
+	public function receitaMes($mes){
+		$receitas = TableRegistry::get('Receitas')->find();
+		$res = $receitas->select(['total_sum' =>$receitas->func()->sum('Receitas.valor')])
+		->where(['Receitas.mes' => $mes])
+		->first(); //perform the sum operation 
+		$total = $res->total_sum;
+
+		return $total;
+/*
+		$connection = ConnectionManager::get('default');
+		$results = $connection->execute("SELECT sum(valor) FROM receitas WHERE mes = '$mes'")->fetchAll();
+		return $results[0][0];
+*/
+	}
+
+DespesasController
+
+use Cake\ORM\TableRegistry;
+
+	public function despesasMes()
+	{
+		$mes = $this->request->data('mes');
+		$despesas = TableRegistry::get('Despesas');
+		$total = $despesas->despesasMes($mes);
+		$this->set('total',$total); 
+	}
+
+	public function saldoMes()
+	{
+		$mes = $this->request->data('mes');
+		$this->LoadModel('Receitas');
+		$receitas = $this->Receitas->receitaMes($mes);
+
+		$despesas = TableRegistry::get('Despesas');
+		$total = $despesas->despesasMes($mes);
+
+		$saldo = $receitas - $total;
+		$this->set('saldo',$saldo); 
+	}
+
+src/Templates/Despesas/index.ctp
+
+Logo acima de:
+    </ul>
+</nav>
+
+Adicionar estes dois forms
+
+<b>Despesas de um mês</b>
+<?php
+   echo $this->Form->create("Despesas",['url'=>'/despesas/despesas_mes']);
+   echo $this->Form->input('mes');
+   echo $this->Form->button('Submit');
+   echo $this->Form->end();
+?>
+<b>Saldo de um mês</b>
+<?php
+   echo $this->Form->create("Saldo",['url'=>'/despesas/saldo_mes']);
+   echo $this->Form->input('mes');
+   echo $this->Form->button('Submit');
+   echo $this->Form->end();
+?>
+
+
+src/Templates/Despesas/despesas_mes.ctp
+
+<?php
+print $total;
+?>
+<br>
+<br>
+<br>
+<li><?= $this->Html->link(__('Voltar'), ['action' => 'index']) ?></li>
+
+src/Templates/Despesas/saldo_mes.ctp
+
+<?php
+/**
+  * @var \App\View\AppView $this
+  */
+print $saldo;
+?>
+<br>
+<br>
+<br>
+<li><?= $this->Html->link(__('Voltar'), ['action' => 'index']) ?></li>
+
+

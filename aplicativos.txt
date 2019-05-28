@@ -1,0 +1,44 @@
+Criar o aplicativo adminbr com cake.sh e instalar o plugin ribafs/admin-br no mesmo
+
+Acessar a box e executar:
+
+cdv
+sudo perms.sh
+cake adminbr
+
+Agora siga o tutorial em:
+https://github.com/ribafs/admin-br
+
+
+== Copiar o aplicativo financas para a box:
+
+Copiar a pasta financas para /home/ribafs/vagrant/ub1804min
+
+Acessar a box
+vargant up
+vagrant ssh
+
+cdv
+Para que abra a esquerda o diretório atual (/var/www/html) e na direita /vagrant
+mc . /vagrant
+
+Teclar tab para selecionar o painel da direita
+Use a tecla de seta para baixo para selecionar a pasta financas
+Teclar F5 para copiar de /vagrant para /var/www/html
+Use o ponteiro do mouse e clique em File - Exit
+
+Execute:
+sudo perms.sh financas
+cd financas
+composer update
+
+Criar o banco financas através do adminer.php
+http://192.168.33.10/adminer.php
+
+Como o aplicativo já está com banco e rotas configurados apenas rodar o migrations para criar as tabelas e restaurar os dados:
+
+bin/cake migrations migrate
+bin/cake migrations seed
+
+Acessar e testar:
+http://192.168.33.10/financas
