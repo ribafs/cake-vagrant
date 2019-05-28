@@ -1,3 +1,6 @@
+## Algumas dicas para o Vagrantfile
+
+```php
   config.vm.hostname = "sei-vagrant"
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.synced_folder "./www", "/var/www/html"
@@ -14,3 +17,4 @@
     config.vm.boot_timeout = 600
   end
 
+```
