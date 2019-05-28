@@ -10,3 +10,7 @@ Após instalado o Vagrant, o Virtualbox e o Git, crie uma pasta, acesse-a e exec
 vagrant init ribafs/cake-vagrant --box-version 1.3
 vagrant up
 ```
+
+## Documentação em
+
+https://ribafs.github.io/cake-vagrant
