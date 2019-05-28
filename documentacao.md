@@ -1,12 +1,12 @@
-## Criação de box para Vagrant com Ubuntu 18.04
+# Criação de box para Vagrant com Ubuntu 18.04
 
-Box criada sobre https://app.vagrantup.com/ubuntu/boxes/bionic64
+Box criada de https://app.vagrantup.com/ubuntu/boxes/bionic64
 
 Na minha máquina criei uma pasta para as boxes do Vagrant em:
 
 /home/ribafs/vagrant
 
-Então criara uma pasta para esta nova box em:
+Então criei uma pasta para esta nova box em:
 
 /home/ribafs/vagrant/ub1804min
 ```php
@@ -24,7 +24,7 @@ Executar:
 ```php
 reboot
 ```
-Instalar:
+## Softwares Instalados:
 
 - apache2 com mod_rewrite
 - aptitude
@@ -40,7 +40,7 @@ Instalar:
 - nodejs 12 com npm
 - adminer.php
 
-Módulos do PHP:
+## Módulos do PHP:
 
 - php7.2-bcmath php7.2-gd php7.2-mysql php7.2-pgsql php7.2-sqlite
 - php-pear php7.2-xml php7.2-xsl php7.2-curl phpunit php-xdebug php7.2-intl
@@ -52,12 +52,13 @@ Apenas copiei o script ub1804.sh para a pasta /home/ribafs/vagrant/ub1804min no 
 
 Veja o conteúdo do script ub1804.sh em:
 
-https://github.com/ribafs/cake-varant, na pasta scripts
+https://github.com/ribafs/cake-vagrant, na pasta scripts
 
 Acessar a box com:
+
 cd /home/ribafs/vagrant/ub1804min
 
-Mudar o nome do hostname
+## Mudar o nome do hostname
 ```php
 vagrant up
 vagrant ssh
@@ -81,16 +82,16 @@ sudo sh ub1804.sh
 - Executei a segunda opção para instalar os pacotes
 - Sai
 
-Agora configurar o apache e o php:
+## Configurar o apache e o php:
 ```php
 sudo nano /etc/php/7.2/apache2/php.ini
 ```
-Configurar a exibição de erros em desenvolvimento para mostrar as mensagens de eero:
+## Configurar a exibição de erros em desenvolvimento para mostrar as mensagens de eero:
 ```php
 display_errors = On)
 ```
 
-Configurar apache
+## Configurar apache
 ```php
 sudo nano /etc/apache2/apache2.conf
 ```
@@ -118,10 +119,11 @@ Trocar None por All, deixando assim
 </Directory>
 ```
 
-Reiniciar
+Reiniciar apache
 ```php
 sudo service apache2 restart
 ```
+## Ajustes no MySQL
 O mysql no Ubuntu 18.04 vem para apenas acesso com sudo. Ajustando isso:
 
 Conectado na box execute:
@@ -143,7 +145,7 @@ Agora o MySQL tem:
 - Login - root
 - Senha - root
 
-Ajustes no PostgreSQL
+## Ajustes no PostgreSQL
 
 Conectado na box
 ```php
@@ -164,23 +166,25 @@ Salve e feche
 exit
 service postgresql restart
 ```
-Acesse o mysql com o adminer e acesse o postgres:
+## Acesse o mysql com o adminer e acesse o postgres:
 
 http://192.168.33.10/adminer.php
 
-PostgreSQL
+## PostgreSQL
 
 - Usuário - postgres
 - Senha - postgres
 
-Sair e acessar agora o mysql
+## Saia e acesse o mysql
 
 http://192.168.33.10/adminer.php
 
 - Login - root
 - Senha - root
 
-Copiar os scripts cake.sh e perms.sh do host para a pasta /home/ribafs/vagrant/ub1804min:
+## Copiar os scripts cake.sh e perms.sh do host para a pasta
+
+/home/ribafs/vagrant/ub1804min:
 
 Para que fiquem disponíveis na pasta /vagrant da box
 
@@ -188,14 +192,18 @@ Para ver o conteúdo dos scripts veja em
 
 https://github.com/ribafs/cake-vagrant
 
-Acessar a box e acessar:
+## Acessar a box:
+```php
+vagrant up
+vagrant ssh
 
 cd /vagrant
-
+```
 Copiar na box os 3 scripts para a pasta scripts
 
 mkdir /home/vagrant/scripts
 
+## Adicionando ao path
 Copiar os dois scripts (cake.sh e perms.sh) para /usr/local/bin para que fiquem no path e estejam acessíveis de qualquer pasta com mais facilidade.
 ```php
 sudo cp cake.sh /usr/local/bin
@@ -204,7 +212,7 @@ sudo chmod +x /usr/local/bin/cake.sh
 sudo cp perms.sh /usr/local/bin
 sudo chmod +x /usr/local/bin/perms.sh
 ```
-Criar alias cdv
+## Criar alias cdv
 ```php
 nano ~/.bashrc
 
@@ -232,11 +240,11 @@ Para ajustar um subdiretório de /var/www/html digite
 
 sudo perms.sh nomeSubdir
 
-Adicionar user vagrant para o grupo www-data
+## Adicionar user vagrant para o grupo www-data
 
 sudo adduser vagrant www-data
 
-Aumentar a memória RAM da box para 2048:
+## Aumentar a memória RAM da box para 2048:
 
 - Edite o Vagrantfile, alterando as linhas abaixo:
 ```php
@@ -244,11 +252,11 @@ Aumentar a memória RAM da box para 2048:
     vb.memory = "2048"
   end
 ```
-Após qualquer alteração do Vagrantfile devemos executar:
+## Após qualquer alteração do Vagrantfile devemos executar:
 
 vagrant up --provision
 
-Exportar a box atual (ub1804min) como cake-vagrant-1.0.box:
+## Exportar a box atual (ub1804min) como cake-vagrant-1.0.box:
 
 vagrant package -o cake-vagrant-1.0.box
 
