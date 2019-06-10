@@ -14,3 +14,7 @@ vagrant up
 ## Documentação em
 
 https://ribafs.github.io/cake-vagrant
+
+## Licença
+
+MIT
