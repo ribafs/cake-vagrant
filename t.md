@@ -1,7 +1,6 @@
 ## Teste
 
 ´´´php
-<?php
 /**
  * Created on 05/10/2009
  * @author Rogério Oliveira     -   rogeriobav@gmail.com.
@@ -87,5 +86,4 @@ print $form->inputTel('telefone',$valor='');
 print $form->inputEmail('email');
 print $form->submit();
 print $form->formEnd();
-?>
 ´´´
