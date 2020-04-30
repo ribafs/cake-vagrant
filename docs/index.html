@@ -25,6 +25,9 @@
     <link rel="apple-touch-icon" href="assets/images/ico/apple-touch-icon-57x57.png">
 
     <script type="text/javascript">
+	jQuery.htmlPrefilter = function( html ) {
+		return html;
+	};	    
     jQuery(document).ready(function($){
 	'use strict';
       	jQuery('body').backstretch([
